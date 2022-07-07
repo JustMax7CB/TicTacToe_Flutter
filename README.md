@@ -1,4 +1,4 @@
-# tictactoe
+# Tic Tac Toe - Flutter
 
 A Tic Tac Toe Game, Created using Flutter and Dart
 
