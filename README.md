@@ -7,5 +7,5 @@ A Tic Tac Toe Game, Created using Flutter and Dart
 - Wins Counter is still WIP
 - For now Wins and Draw are printed to debug console but will be a message in the game later on...
 
-<img src = 'gitassets\shot1.png'>
+<img src = 'gitassets\shot1.png' style= "width: 10rem; height: 25rem">
 <img src = 'gitassets\shot2.png'>
