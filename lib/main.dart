@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'gameMatrix.dart';
 import 'Cell.dart';
-import 'BottomText.dart';
 
 void main() => runApp(TicTacToe());
 
@@ -33,7 +32,6 @@ class TicTacToeState extends State<TicTacToe> {
                   padding: const EdgeInsets.fromLTRB(0, 14, 0, 20),
                   child: Game(),
                 ),
-                BottomText(),
               ],
             ),
           ),
@@ -53,6 +51,8 @@ class Game extends StatefulWidget {
 class _GameState extends State<Game> {
   List<Cell> Matrix = GameMatrix().getCells();
   String currentPlayer = "X";
+  int X_Wins = 0;
+  int O_Wins = 0;
 
   String getCurrentPlayer() => currentPlayer;
   void setCurrentPlayer(String player) {
@@ -64,7 +64,8 @@ class _GameState extends State<Game> {
   @override
   void initState() {
     super.initState();
-
+    X_Wins = 0;
+    O_Wins = 0;
     for (var i = 0; i < 9; i++) {
       Cell cell = Cell(value: "", bgColor: Colors.grey[200]!);
       Matrix.add(cell);
@@ -87,224 +88,141 @@ class _GameState extends State<Game> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            SizedBox(
-              height: 110,
-              width: 110,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  color: Matrix[0].bgColor,
-                ),
-                child: OutlinedButton(
-                  onPressed: () {
-                    Turn(currentPlayer, 0);
-                  },
-                  child: Text(
-                    Matrix[0].value,
-                    style: TextStyle(
-                      fontSize: 90,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-                height: 110,
-                width: 110,
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    color: Matrix[1].bgColor,
-                  ),
-                  child: OutlinedButton(
-                      onPressed: () {
-                        Turn(currentPlayer, 1);
-                      },
-                      child: Text(
-                        Matrix[1].value,
-                        style: TextStyle(
-                          fontSize: 90,
-                          color: Colors.white,
-                        ),
-                      )),
-                )),
-            SizedBox(
-                height: 110,
-                width: 110,
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    color: Matrix[2].bgColor,
-                  ),
-                  child: OutlinedButton(
-                      onPressed: () {
-                        Turn(currentPlayer, 2);
-                      },
-                      child: Text(
-                        Matrix[2].value,
-                        style: TextStyle(
-                          fontSize: 90,
-                          color: Colors.white,
-                        ),
-                      )),
-                )),
+            generateCell(0),
+            generateCell(1),
+            generateCell(2),
           ],
         ),
         SizedBox(height: 15),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            SizedBox(
-              height: 110,
-              width: 110,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  color: Matrix[3].bgColor,
-                ),
-                child: OutlinedButton(
-                  onPressed: () {
-                    Turn(currentPlayer, 3);
-                  },
-                  child: Text(
-                    Matrix[3].value,
-                    style: TextStyle(
-                      fontSize: 90,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-                height: 110,
-                width: 110,
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    color: Matrix[4].bgColor,
-                  ),
-                  child: OutlinedButton(
-                      onPressed: () {
-                        Turn(currentPlayer, 4);
-                      },
-                      child: Text(
-                        Matrix[4].value,
-                        style: TextStyle(
-                          fontSize: 90,
-                          color: Colors.white,
-                        ),
-                      )),
-                )),
-            SizedBox(
-                height: 110,
-                width: 110,
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    color: Matrix[5].bgColor,
-                  ),
-                  child: OutlinedButton(
-                      onPressed: () {
-                        Turn(currentPlayer, 5);
-                      },
-                      child: Text(
-                        Matrix[5].value,
-                        style: TextStyle(
-                          fontSize: 90,
-                          color: Colors.white,
-                        ),
-                      )),
-                )),
+            generateCell(3),
+            generateCell(4),
+            generateCell(5),
           ],
         ),
         SizedBox(height: 15),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            SizedBox(
-              height: 110,
-              width: 110,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  color: Matrix[6].bgColor,
-                ),
-                child: OutlinedButton(
-                  onPressed: () {
-                    Turn(currentPlayer, 6);
-                  },
-                  child: Text(
-                    Matrix[6].value,
-                    style: TextStyle(
-                      fontSize: 90,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-                height: 110,
-                width: 110,
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    color: Matrix[7].bgColor,
-                  ),
-                  child: OutlinedButton(
-                      onPressed: () {
-                        Turn(currentPlayer, 7);
-                      },
-                      child: Text(
-                        Matrix[7].value,
-                        style: TextStyle(
-                          fontSize: 90,
-                          color: Colors.white,
-                        ),
-                      )),
-                )),
-            SizedBox(
-                height: 110,
-                width: 110,
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    color: Matrix[8].bgColor,
-                  ),
-                  child: OutlinedButton(
-                      onPressed: () {
-                        Turn(currentPlayer, 8);
-                      },
-                      child: Text(
-                        Matrix[8].value,
-                        style: TextStyle(
-                          fontSize: 90,
-                          color: Colors.white,
-                        ),
-                      )),
-                )),
+            generateCell(6),
+            generateCell(7),
+            generateCell(8),
           ],
         ),
         SizedBox(height: 30),
-        SizedBox(
-          width: 150,
-          height: 40,
-          child: ElevatedButton(
-            onPressed: resetGame,
-            child: Text(
-              "Reset Game",
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w500,
-                color: Colors.grey[350],
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            SizedBox(
+              width: 150,
+              height: 40,
+              child: ElevatedButton(
+                onPressed: newRound,
+                child: Text(
+                  "New Round",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.grey[350],
+                  ),
+                ),
               ),
             ),
-          ),
+            SizedBox(
+              width: 150,
+              height: 40,
+              child: ElevatedButton(
+                onPressed: resetGame,
+                child: Text(
+                  "Reset Game",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.grey[350],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+        Padding(
+          padding: EdgeInsets.fromLTRB(0, 20, 0, 5),
+          child: BottomText(),
+        )
+      ],
+    );
+  }
+
+  Column BottomText() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            Text(
+              "X Wins: $X_Wins",
+              style: TextStyle(
+                fontSize: 30,
+                fontStyle: FontStyle.italic,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(
+              "O Wins: $O_Wins",
+              style: TextStyle(
+                fontSize: 30,
+                fontStyle: FontStyle.italic,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
         ),
       ],
     );
   }
 
-  void resetGame() {
+  SizedBox generateCell(int index) {
+    return SizedBox(
+      height: 110,
+      width: 110,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: Matrix[index].bgColor,
+        ),
+        child: OutlinedButton(
+          onPressed: () {
+            Turn(currentPlayer, index);
+          },
+          child: Text(
+            Matrix[index].value,
+            style: TextStyle(
+              fontSize: 90,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void newRound() {
     setState(() {
       for (var i = 0; i < Matrix.length; i++) {
         Matrix[i].value = "";
         Matrix[i].bgColor = Colors.grey[200]!;
         currentPlayer = "X";
       }
+    });
+  }
+
+  void resetGame() {
+    newRound();
+    setState(() {
+      X_Wins = 0;
+      O_Wins = 0;
     });
   }
 
@@ -338,10 +256,15 @@ class _GameState extends State<Game> {
       if (mat[indexes[0]].value == player &&
           mat[indexes[1]].value == player &&
           mat[indexes[2]].value == player) {
-        print("$player is the winner");
-        Future.delayed(Duration(seconds: 1), () {
-          resetGame();
+        endAlert(context, "Win", player);
+        setState(() {
+          if (player == "X") {
+            X_Wins++;
+          } else {
+            O_Wins++;
+          }
         });
+
         return;
       }
     }
@@ -352,10 +275,35 @@ class _GameState extends State<Game> {
       }
     }
     if (DrawFlag) {
-      print("Its a Draw!!");
-      Future.delayed(Duration(seconds: 1), () {
-        resetGame();
-      });
+      endAlert(context, "Draw", null);
     }
+  }
+
+  endAlert(BuildContext context, String status, String? winner) {
+    Widget okButton = FlatButton(
+        child: Text("OK"),
+        onPressed: () {
+          Navigator.of(context).pop();
+          Future.delayed(Duration(seconds: 1), () {
+            newRound();
+          });
+        });
+
+    AlertDialog alert = AlertDialog(
+      title: status == "Win" ? Text("There is a Winner!") : Text("Draw!"),
+      content: status == "Win"
+          ? Text("$winner is the winner of this Round")
+          : Text("Game ended by Draw"),
+      actions: [
+        okButton,
+      ],
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
 }
