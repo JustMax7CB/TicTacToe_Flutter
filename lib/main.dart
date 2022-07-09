@@ -17,6 +17,7 @@ class TicTacToeState extends State<TicTacToe> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           title: Text("Tic Tac Toe Flutter"),
